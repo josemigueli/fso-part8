@@ -1,0 +1,17 @@
+{
+  "name": "fso-part-8",
+  "version": "1.0.0",
+  "description": "Full Stack Open Course",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js",
+    "test": ""
+  },
+  "author": "Miguel Osorio",
+  "license": "MIT",
+  "dependencies": {
+    "@apollo/server": "^4.11.0",
+    "graphql": "^16.9.0",
+    "uuid": "^10.0.0"
+  }
+}
