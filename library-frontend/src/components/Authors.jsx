@@ -1,15 +1,30 @@
 /* eslint-disable react/prop-types */
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
 import { ALL_AUTHORS } from '../queries'
 import SetBirthday from './SetBirthdat'
 import Container from 'react-bootstrap/Container'
 import Table from 'react-bootstrap/Table'
+import { useLoginValue } from '../LoginContext'
 
 const Authors = ({ setNoty }) => {
+  const token = useLoginValue()
+  const navigate = useNavigate()
   const result = useQuery(ALL_AUTHORS)
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/login')
+    }
+  })
 
   if (result.loading) {
     return <Container><p>Loading...</p></Container>
+  }
+
+  if (!token) {
+    return null
   }
 
   return (

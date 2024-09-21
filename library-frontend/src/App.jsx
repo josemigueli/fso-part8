@@ -1,16 +1,21 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Authors from './components/Authors'
 import Books from './components/Books'
 import NewBook from './components/NewBook'
 import Header from './components/Header'
 import Notification from './components/Notification'
+import LoginForm from './components/LoginForm'
+import Recommendations from './components/Recommendations'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Container from 'react-bootstrap/Container'
+import { useTokenRetrieve } from './LoginContext'
 
 const App = () => {
   const [notification, setNotification] = useState(null)
+  const retrieve = useTokenRetrieve()
 
   const notify = (message) => {
     setNotification(message)
@@ -19,6 +24,10 @@ const App = () => {
     }, 5000)
   }
 
+  useEffect(() => {
+    retrieve()
+  }, [])
+
   return (
     <Container>
       <Notification noty={notification} />
@@ -26,7 +35,9 @@ const App = () => {
       <Routes>
         <Route path='/' element={ <Authors setNoty={notify} /> } />
         <Route path='/books' element={ <Books /> } />
+        <Route path='/recommendations' element={ <Recommendations /> } />
         <Route path='/new-book' element={ <NewBook setNoty={notify} /> } />
+        <Route path='/login' element={ <LoginForm setNoty={notify} /> } />
       </Routes>
     </Container>
   )

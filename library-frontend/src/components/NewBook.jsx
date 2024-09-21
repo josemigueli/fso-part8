@@ -1,10 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useMutation } from '@apollo/client'
 import { ALL_AUTHORS, ALL_BOOKS, CREATE_BOOK } from '../queries'
 import Container from 'react-bootstrap/esm/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/esm/Button'
+import { useLoginValue } from '../LoginContext'
 
 const NewBook = ({ setNoty }) => {
   const [title, setTitle] = useState('')
@@ -13,8 +16,15 @@ const NewBook = ({ setNoty }) => {
   const [genre, setGenre] = useState('')
   const [genres, setGenres] = useState([])
 
+  const token = useLoginValue()
+  const navigate = useNavigate()
+  const [render, setRender] = useState(true)
+
   const [ addBook ] = useMutation(CREATE_BOOK, {
-    refetchQueries: [ { query: ALL_AUTHORS }, { query: ALL_BOOKS } ],
+    refetchQueries: [ 
+      { query: ALL_AUTHORS }, 
+      { query: ALL_BOOKS },
+    ],
     onCompleted: () => {
       setTitle('')
       setPublished('')
@@ -25,8 +35,20 @@ const NewBook = ({ setNoty }) => {
       setNoty( {message} )
     },
     onError: (error) => {
+      console.log(error)
       const message = error.graphQLErrors.map(e => e.message).join('\n')
       setNoty( {message, type: 'error'} )
+    },
+    update: (cache, { data }) => {
+      data.addBook.genres.map(g => {
+        cache.evict({
+          id: 'ROOT_QUERY',
+          fieldName: 'allBooks',
+          args: {
+            genre: g
+          }
+        })
+      })
     }
   })
 
@@ -40,8 +62,22 @@ const NewBook = ({ setNoty }) => {
     setGenre('')
   }
 
+  useEffect(() => {
+    if (render) {
+      setRender(false)
+      return
+    }
+    if (!token) {
+      navigate('/login')
+    }
+  }, [render, token])
+
+  if (!token) {
+    return null
+  }
+
   return (
-    <Container>
+    <Container className='mb-5'>
       <div className='col-lg-5'>
         <h2>Add a Book</h2>
         <Form onSubmit={submit}>

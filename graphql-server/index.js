@@ -160,13 +160,13 @@ const resolvers = {
       }
 
       const checkAuthor = await Author.findOne({ name: args.author })
-      let authorId
+      let theAuthor
 
       if (!checkAuthor) {
         const author = new Author({ name: args.author, id: uuidv4() })
-        authorId = author.id
         try {
-          author.save()
+          await author.save()
+          theAuthor = author
         } catch (error) {
           throw new GraphQLError('Saving new author failed.', {
             extensions: {
@@ -177,12 +177,12 @@ const resolvers = {
           })
         }
       } else {
-        authorId = checkAuthor._id
+        theAuthor = checkAuthor
       }
 
-      const book = new Book({ ...args, author: authorId, id: uuidv4() })
+      const book = new Book({ ...args, author: theAuthor, id: uuidv4() })
       try {
-        book.save()
+        await book.save()
       } catch (error) {
         throw new GraphQLError('Saving new book failed', {
           extensions: {
@@ -210,7 +210,7 @@ const resolvers = {
       }
       author.born = args.setBornTo
       try {
-        return author.save()
+        await author.save()
       } catch (error) {
         throw new GraphQLError('Updating author failed', {
           extensions: {
@@ -220,6 +220,7 @@ const resolvers = {
           }
         })
       }
+      return author
     },
     createUser: async (root, args) => {
       if (args.username.length < 3) {
@@ -242,7 +243,7 @@ const resolvers = {
 
       const user = new User({ ...args, id: uuidv4() })
       try {
-        user.save()
+        await user.save()
       } catch (error) {
         throw new GraphQLError('Creating user failed', {
           extensions: {
