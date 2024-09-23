@@ -10,7 +10,7 @@ const Notification = ({ noty }) => {
 
     const ShowToast = ({ header, message, type }) => {
         return (
-            <ToastContainer className='p-3' position='top-center' style={{ zIndex: 1 }}>
+            <ToastContainer className='p-3 position-fixed' position='top-center' style={{ zIndex: 1 }}>
             <Toast bg={type}>
                 <Toast.Header closeButton={false}>
                 <strong className='me-auto'>{header}</strong>

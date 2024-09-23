@@ -3,11 +3,12 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useMutation } from '@apollo/client'
-import { ALL_AUTHORS, ALL_BOOKS, CREATE_BOOK } from '../queries'
+import { ALL_AUTHORS, ALL_BOOKS, CREATE_BOOK, BOOKS_BY_GENRE } from '../queries'
 import Container from 'react-bootstrap/esm/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/esm/Button'
 import { useLoginValue } from '../LoginContext'
+import { updateCache } from '../functions'
 
 const NewBook = ({ setNoty }) => {
   const [title, setTitle] = useState('')
@@ -21,10 +22,6 @@ const NewBook = ({ setNoty }) => {
   const [render, setRender] = useState(true)
 
   const [ addBook ] = useMutation(CREATE_BOOK, {
-    refetchQueries: [ 
-      { query: ALL_AUTHORS }, 
-      { query: ALL_BOOKS },
-    ],
     onCompleted: () => {
       setTitle('')
       setPublished('')
@@ -40,15 +37,7 @@ const NewBook = ({ setNoty }) => {
       setNoty( {message, type: 'error'} )
     },
     update: (cache, { data }) => {
-      data.addBook.genres.map(g => {
-        cache.evict({
-          id: 'ROOT_QUERY',
-          fieldName: 'allBooks',
-          args: {
-            genre: g
-          }
-        })
-      })
+      updateCache(cache, ALL_BOOKS, BOOKS_BY_GENRE, ALL_AUTHORS, data.addBook)
     }
   })
 

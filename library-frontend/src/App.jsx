@@ -2,6 +2,9 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { useSubscription } from '@apollo/client'
+import { ALL_BOOKS, BOOK_ADDED, BOOKS_BY_GENRE, ALL_AUTHORS } from './queries'
+import { updateCache } from './functions'
 import Authors from './components/Authors'
 import Books from './components/Books'
 import NewBook from './components/NewBook'
@@ -23,6 +26,14 @@ const App = () => {
       setNotification(null)
     }, 5000)
   }
+
+  useSubscription(BOOK_ADDED, {
+    onData: ({ data, client }) => {
+      const addedBook = data.data.bookAdded
+      notify({ message: `${addedBook.title} added` })
+      updateCache(client.cache, ALL_BOOKS, BOOKS_BY_GENRE, ALL_AUTHORS, addedBook)
+    }
+  })
 
   useEffect(() => {
     retrieve()

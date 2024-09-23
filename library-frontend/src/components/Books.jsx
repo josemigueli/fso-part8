@@ -43,7 +43,10 @@ const Books = () => {
   useEffect(() => {
     if (allBooks) {
       setBooks(allBooks)
-      setGenre('All genres')
+      if (genre === null) {
+        setGenre('All genres')
+      }
+      
     }
   }, [result])
 
