@@ -10,6 +10,7 @@ const typeDefs = `
     name: String!
     id: String!
     born: Int
+    books: [Book]
     bookCount: Int
   }
   type User {
