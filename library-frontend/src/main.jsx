@@ -1,7 +1,13 @@
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter as Router } from 'react-router-dom'
 import App from './App.jsx'
-import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink, split } from '@apollo/client'
+import {
+  ApolloClient,
+  ApolloProvider,
+  InMemoryCache,
+  createHttpLink,
+  split
+} from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
@@ -23,9 +29,7 @@ const httpLink = createHttpLink({
   uri: 'http://localhost:4000'
 })
 
-const wsLink = new GraphQLWsLink(
-  createClient({ url: 'ws://localhost:4000' })
-)
+const wsLink = new GraphQLWsLink(createClient({ url: 'ws://localhost:4000' }))
 
 const splitLink = split(
   ({ query }) => {
@@ -41,10 +45,10 @@ const splitLink = split(
 
 const client = new ApolloClient({
   link: splitLink,
-  cache: new InMemoryCache,
+  cache: new InMemoryCache()
 })
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <Router>
     <ApolloProvider client={client}>
       <LoginContextProvider>

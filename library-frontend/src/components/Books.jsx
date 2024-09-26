@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
@@ -7,7 +6,6 @@ import Container from 'react-bootstrap/esm/Container'
 import Table from 'react-bootstrap/esm/Table'
 import Button from 'react-bootstrap/esm/Button'
 import { useLoginValue } from '../LoginContext'
-
 
 const Books = () => {
   const token = useLoginValue()
@@ -46,7 +44,6 @@ const Books = () => {
       if (genre === null) {
         setGenre('All genres')
       }
-      
     }
   }, [result])
 
@@ -57,12 +54,16 @@ const Books = () => {
   }, [getByGenre])
 
   if (result.loading) {
-    return <Container><p>Loading...</p></Container>
+    return (
+      <Container>
+        <p>Loading...</p>
+      </Container>
+    )
   }
 
   allBooks = result.data.allBooks
   const genres = allBooks
-    .flatMap(b => b.genres)
+    .flatMap((b) => b.genres)
     .filter((element, index, self) => {
       return self.indexOf(element) === index
     })
@@ -76,24 +77,24 @@ const Books = () => {
       <h2>Books</h2>
 
       <div className='mb-3'>
-        <p>Filtered by: <b>{genre}</b></p>
+        <p>
+          Filtered by: <b>{genre}</b>
+        </p>
         <div>
-          <Button 
+          <Button
             type='button'
-            variant={genre === 'All genres' ? 'outline-secondary' : 'primary'} 
-            className='me-2' 
-            onClick={() => filter('All genres')}
-          >
+            variant={genre === 'All genres' ? 'outline-secondary' : 'primary'}
+            className='me-2'
+            onClick={() => filter('All genres')}>
             All genres
           </Button>
           {genres.map((g, index) => (
-            <Button 
+            <Button
               type='button'
-              variant={genre === g ? 'outline-secondary' : 'primary'} 
-              key={index} 
+              variant={genre === g ? 'outline-secondary' : 'primary'}
+              key={index}
               className='me-2'
-              onClick={() => filter(g)}
-            >
+              onClick={() => filter(g)}>
               {g}
             </Button>
           ))}

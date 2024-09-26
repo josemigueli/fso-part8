@@ -1,6 +1,8 @@
 const { ApolloServer } = require('@apollo/server')
 const { expressMiddleware } = require('@apollo/server/express4')
-const { ApolloServerPluginDrainHttpServer } = require('@apollo/server/plugin/drainHttpServer')
+const {
+  ApolloServerPluginDrainHttpServer
+} = require('@apollo/server/plugin/drainHttpServer')
 const { makeExecutableSchema } = require('@graphql-tools/schema')
 const { WebSocketServer } = require('ws')
 const { useServer } = require('graphql-ws/lib/use/ws')
@@ -18,16 +20,14 @@ require('dotenv').config()
 const MONGODB_URI = process.env.MONGODB_URI
 console.log('Connecting to ', MONGODB_URI)
 
-mongoose.connect(MONGODB_URI)
+mongoose
+  .connect(MONGODB_URI)
   .then(() => {
     console.log('Connected to MongoDB')
   })
   .catch((error) => {
     console.log('Error connection to MongoDB: ', error.message)
   })
-
-// mongoose.set('strictQuery', false)
-// mongoose.set('debug', true)
 
 const start = async () => {
   const app = express()
@@ -68,7 +68,8 @@ const start = async () => {
         const auth = req ? req.headers.authorization : null
         if (auth && auth.startsWith('Bearer ')) {
           const decodedToken = jwt.verify(
-            auth.substring(7), process.env.JWT_SECRET
+            auth.substring(7),
+            process.env.JWT_SECRET
           )
           const currentUser = await User.findById(decodedToken.id)
           return { currentUser }
@@ -79,7 +80,9 @@ const start = async () => {
 
   const PORT = process.env.PORT
 
-  httpServer.listen(PORT, () => console.log(`Server is now running on http://localhost:${PORT}`))
+  httpServer.listen(PORT, () =>
+    console.log(`Server is now running on http://localhost:${PORT}`)
+  )
 }
 
 start()

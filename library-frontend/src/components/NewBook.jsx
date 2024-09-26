@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useMutation } from '@apollo/client'
@@ -21,7 +19,7 @@ const NewBook = ({ setNoty }) => {
   const navigate = useNavigate()
   const [render, setRender] = useState(true)
 
-  const [ addBook ] = useMutation(CREATE_BOOK, {
+  const [addBook] = useMutation(CREATE_BOOK, {
     onCompleted: () => {
       setTitle('')
       setPublished('')
@@ -29,12 +27,12 @@ const NewBook = ({ setNoty }) => {
       setGenres([])
       setGenre('')
       const message = 'Book added!'
-      setNoty( {message} )
+      setNoty({ message })
     },
     onError: (error) => {
       console.log(error)
-      const message = error.graphQLErrors.map(e => e.message).join('\n')
-      setNoty( {message, type: 'error'} )
+      const message = error.graphQLErrors.map((e) => e.message).join('\n')
+      setNoty({ message, type: 'error' })
     },
     update: (cache, { data }) => {
       updateCache(cache, ALL_BOOKS, BOOKS_BY_GENRE, ALL_AUTHORS, data.addBook)
@@ -43,7 +41,9 @@ const NewBook = ({ setNoty }) => {
 
   const submit = async (event) => {
     event.preventDefault()
-    addBook({ variables: { title, author, published: parseInt(published), genres } })
+    addBook({
+      variables: { title, author, published: parseInt(published), genres }
+    })
   }
 
   const addGenre = () => {
@@ -87,7 +87,7 @@ const NewBook = ({ setNoty }) => {
           <Form.Group className='mb-3'>
             <Form.Label>Published</Form.Label>
             <Form.Control
-              type="number"
+              type='number'
               value={published}
               onChange={({ target }) => setPublished(target.value)}
             />
@@ -104,7 +104,9 @@ const NewBook = ({ setNoty }) => {
             </Button>
           </Form.Group>
           <div className='mb-3'>Genres: {genres.join(' ')}</div>
-          <Button type='submit' variant='primary'>Create Book</Button>
+          <Button type='submit' variant='primary'>
+            Create Book
+          </Button>
         </Form>
       </div>
     </Container>

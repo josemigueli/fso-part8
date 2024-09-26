@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { useSubscription } from '@apollo/client'
@@ -31,7 +29,13 @@ const App = () => {
     onData: ({ data, client }) => {
       const addedBook = data.data.bookAdded
       notify({ message: `${addedBook.title} added` })
-      updateCache(client.cache, ALL_BOOKS, BOOKS_BY_GENRE, ALL_AUTHORS, addedBook)
+      updateCache(
+        client.cache,
+        ALL_BOOKS,
+        BOOKS_BY_GENRE,
+        ALL_AUTHORS,
+        addedBook
+      )
     }
   })
 
@@ -44,11 +48,11 @@ const App = () => {
       <Notification noty={notification} />
       <Header />
       <Routes>
-        <Route path='/' element={ <Authors setNoty={notify} /> } />
-        <Route path='/books' element={ <Books /> } />
-        <Route path='/recommendations' element={ <Recommendations /> } />
-        <Route path='/new-book' element={ <NewBook setNoty={notify} /> } />
-        <Route path='/login' element={ <LoginForm setNoty={notify} /> } />
+        <Route path='/' element={<Authors setNoty={notify} />} />
+        <Route path='/books' element={<Books />} />
+        <Route path='/recommendations' element={<Recommendations />} />
+        <Route path='/new-book' element={<NewBook setNoty={notify} />} />
+        <Route path='/login' element={<LoginForm setNoty={notify} />} />
       </Routes>
     </Container>
   )

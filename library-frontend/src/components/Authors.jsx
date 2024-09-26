@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
@@ -20,7 +19,11 @@ const Authors = ({ setNoty }) => {
   })
 
   if (result.loading) {
-    return <Container><p>Loading...</p></Container>
+    return (
+      <Container>
+        <p>Loading...</p>
+      </Container>
+    )
   }
 
   if (!token) {
@@ -46,7 +49,7 @@ const Authors = ({ setNoty }) => {
           ))}
         </tbody>
       </Table>
-      <SetBirthday authors={result.data.allAuthors} setNoty={setNoty}/>
+      <SetBirthday authors={result.data.allAuthors} setNoty={setNoty} />
     </Container>
   )
 }
