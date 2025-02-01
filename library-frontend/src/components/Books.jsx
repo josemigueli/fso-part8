@@ -56,7 +56,7 @@ const Books = () => {
   if (result.loading) {
     return (
       <Container>
-        <p>Loading...</p>
+        <p className='fw-bold'>Loading...</p>
       </Container>
     )
   }
@@ -73,17 +73,17 @@ const Books = () => {
   }
 
   return (
-    <Container className='mb-5'>
+    <Container className='mb-5 mt-3'>
       <h2>Books</h2>
 
       <div className='mb-3'>
-        <p>
-          Filtered by: <b>{genre}</b>
+        <p className='fw-light'>
+          Filtered by: <span className='fw-bold'>{genre}</span>
         </p>
         <div>
           <Button
             type='button'
-            variant={genre === 'All genres' ? 'outline-secondary' : 'primary'}
+            variant={genre === 'All genres' ? 'outline-dark' : 'dark'}
             className='me-2'
             onClick={() => filter('All genres')}>
             All genres
@@ -91,7 +91,7 @@ const Books = () => {
           {genres.map((g, index) => (
             <Button
               type='button'
-              variant={genre === g ? 'outline-secondary' : 'primary'}
+              variant={genre === g ? 'outline-dark' : 'dark'}
               key={index}
               className='me-2'
               onClick={() => filter(g)}>
@@ -101,7 +101,7 @@ const Books = () => {
         </div>
       </div>
 
-      <Table striped bordered hover>
+      <Table hover>
         <tbody>
           <tr>
             <th>Name</th>

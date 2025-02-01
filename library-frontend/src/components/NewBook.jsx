@@ -66,45 +66,62 @@ const NewBook = ({ setNoty }) => {
   }
 
   return (
-    <Container className='mb-5'>
-      <div className='col-lg-5'>
-        <h2>Add a Book</h2>
+    <Container className='mb-5 mt-3 d-flex justify-content-center'>
+      <div className='col-lg-7 border border-secondary-subtle rounded-3 p-4'>
+        <div className='mb-5'>
+          <h2 className='fw-bold'>Add a Book</h2>
+          <p className='fw-light'>
+            Enter the details of the book you want to add to the library
+          </p>
+        </div>
         <Form onSubmit={submit}>
           <Form.Group className='mb-3'>
-            <Form.Label>Title</Form.Label>
+            <Form.Label className='fw-bold'>Title</Form.Label>
             <Form.Control
+              placeholder='Enter the book title'
               value={title}
               onChange={({ target }) => setTitle(target.value)}
             />
           </Form.Group>
           <Form.Group className='mb-3'>
-            <Form.Label>Author</Form.Label>
+            <Form.Label className='fw-bold'>Author</Form.Label>
             <Form.Control
+              placeholder='Enter author name'
               value={author}
               onChange={({ target }) => setAuthor(target.value)}
             />
           </Form.Group>
           <Form.Group className='mb-3'>
-            <Form.Label>Published</Form.Label>
+            <Form.Label className='fw-bold'>Published</Form.Label>
             <Form.Control
+              placeholder='Enter a date'
               type='number'
               value={published}
               onChange={({ target }) => setPublished(target.value)}
             />
           </Form.Group>
           <Form.Group className='mb-3'>
-            <Form.Label>Genre</Form.Label>
-            <Form.Control
-              value={genre}
-              onChange={({ target }) => setGenre(target.value)}
-              className='mb-3'
-            />
-            <Button onClick={addGenre} type='button' variant='secondary'>
-              Add Genre
-            </Button>
+            <Form.Label className='fw-bold'>Genres</Form.Label>
+            <div className='d-flex gap-2'>
+              <Form.Control
+                placeholder='Enter one genre'
+                value={genre}
+                onChange={({ target }) => setGenre(target.value)}
+              />
+              <Button
+                onClick={addGenre}
+                type='button'
+                variant='light'
+                className='fw-bold'>
+                +
+              </Button>
+            </div>
           </Form.Group>
-          <div className='mb-3'>Genres: {genres.join(' ')}</div>
-          <Button type='submit' variant='primary'>
+          <div className='mb-3'>
+            {' '}
+            <span className='fw-bold'>Genres:</span> {genres.join(' ')}
+          </div>
+          <Button type='submit' variant='dark' className='w-100'>
             Create Book
           </Button>
         </Form>

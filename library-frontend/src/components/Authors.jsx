@@ -21,7 +21,7 @@ const Authors = ({ setNoty }) => {
   if (result.loading) {
     return (
       <Container>
-        <p>Loading...</p>
+        <p className='fw-bold'>Loading...</p>
       </Container>
     )
   }
@@ -31,9 +31,15 @@ const Authors = ({ setNoty }) => {
   }
 
   return (
-    <Container>
-      <h2>Authors</h2>
-      <Table striped bordered hover>
+    <Container className='mb-5 mt-3'>
+      <div className='d-md-flex justify-content-between mb-3 mb-md-0'>
+        <div>
+          <h2 className='fw-bold'>Authors</h2>
+          <p className='fw-light'>All the authors in the library</p>
+        </div>
+        <SetBirthday authors={result.data.allAuthors} setNoty={setNoty} />
+      </div>
+      <Table hover>
         <tbody>
           <tr>
             <th>Name</th>
@@ -49,7 +55,6 @@ const Authors = ({ setNoty }) => {
           ))}
         </tbody>
       </Table>
-      <SetBirthday authors={result.data.allAuthors} setNoty={setNoty} />
     </Container>
   )
 }

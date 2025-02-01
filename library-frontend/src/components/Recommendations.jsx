@@ -28,7 +28,7 @@ const Recommendations = () => {
     }
 
     return (
-      <Table striped bordered hover>
+      <Table hover>
         <tbody>
           <tr>
             <th>Name</th>
@@ -66,7 +66,7 @@ const Recommendations = () => {
   if (result.loading) {
     return (
       <Container>
-        <p>Loading...</p>
+        <p className='fw-bold'>Loading...</p>
       </Container>
     )
   }
@@ -76,11 +76,12 @@ const Recommendations = () => {
     return null
   }
   return (
-    <Container>
-      <h2>Recommendations</h2>
+    <Container className='mb-5 mt-3'>
+      <h2 className='fw-bold'>Recommendations</h2>
       <div>
-        <p>
-          Books in your favorite genre <b>{user.favoriteGenre}</b>
+        <p className='fw-light'>
+          Books in your favorite genre{' '}
+          <span className='fw-bold'>{user.favoriteGenre}</span>
         </p>
         {showBooks(getBooks)}
       </div>

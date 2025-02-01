@@ -49,26 +49,33 @@ const LoginForm = ({ setNoty }) => {
   return (
     <Container className='my-5'>
       <div className='justify-content-center row'>
-        <div className='col-lg-5'>
-          <h2>Login</h2>
+        <div className='col-lg-5 border border-secondary-subtle rounded-3 p-4'>
+          <div className='mb-5'>
+            <h2 className='fw-bold'>Login</h2>
+            <p className='fw-light'>Login to watch all the content</p>
+          </div>
           <Form onSubmit={submit}>
             <Form.Group className='mb-3'>
-              <Form.Label>Username</Form.Label>
+              <Form.Label className='fw-bold'>Username</Form.Label>
               <Form.Control
+                placeholder='Enter your username'
                 type='text'
                 value={username}
                 onChange={({ target }) => setUsername(target.value)}
               />
             </Form.Group>
             <Form.Group className='mb-3'>
-              <Form.Label>Password</Form.Label>
+              <Form.Label className='fw-bold'>Password</Form.Label>
               <Form.Control
+                placeholder='Enter your password'
                 type='password'
                 value={password}
                 onChange={({ target }) => setPassword(target.value)}
               />
             </Form.Group>
-            <Button type='submit'>Login</Button>
+            <Button type='submit' variant='dark' className='w-100'>
+              Login
+            </Button>
           </Form>
         </div>
       </div>

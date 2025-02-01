@@ -33,7 +33,7 @@ const Header = () => {
             </Link>
           </Nav>
           <div className='d-flex'>
-            <Button onClick={handleLogout} variant='dark'>
+            <Button onClick={handleLogout} variant='outline-dark'>
               Logout
             </Button>
           </div>
@@ -45,8 +45,8 @@ const Header = () => {
   return (
     <>
       <Navbar expand='lg'>
-        <Container>
-          <Link to='/' className='navbar-brand'>
+        <Container className='py-3 border-bottom'>
+          <Link to='/' className='navbar-brand fw-bold'>
             Library
           </Link>
           {token ? loggedInContent() : null}
