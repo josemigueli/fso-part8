@@ -91,6 +91,26 @@ This project is part of the [Full Stack Open](https://fullstackopen.com/en/) cou
   - **Add Book**: Add a new book to the library.
   - **Recommendations**: Get personalized book recommendations based on your favorite genre.
 
+## Galery
+
+### Login View
+![Login view](library-frontend/public/login.png)
+
+### Home View
+![Home view](library-frontend/public/home.png)
+
+### Set Birthday View
+![Set birthday view](library-frontend/public/set-birthday.png)
+
+### Recommedations View
+![Recommendations view](library-frontend/public/recommedations.png)
+
+### Books View
+![Books view](library-frontend/public/books.png)
+
+### Add Book View
+![Add book view](library-frontend/public/add-book.png)
+
 ## License
 This project is licensed under the MIT License.
 
