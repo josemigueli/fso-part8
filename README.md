@@ -91,7 +91,7 @@ This project is part of the [Full Stack Open](https://fullstackopen.com/en/) cou
   - **Add Book**: Add a new book to the library.
   - **Recommendations**: Get personalized book recommendations based on your favorite genre.
 
-## Galery
+## Gallery
 
 ### Login View
 ![Login view](library-frontend/public/login.png)
